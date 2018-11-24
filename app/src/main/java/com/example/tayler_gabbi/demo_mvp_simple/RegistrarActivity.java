@@ -2,6 +2,7 @@ package com.example.tayler_gabbi.demo_mvp_simple;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +28,17 @@ public class RegistrarActivity extends AppCompatActivity implements RegistrarVie
         contrasenia = findViewById(R.id.edit_text_password);
         btnRegistrar = findViewById(R.id.button_register_ingresar);
         registrarPresenter = new PresenterRegistrarImpl(this);
+
+        Toolbar toolbars = (Toolbar) findViewById(R.id.toolbar_register);
+        setSupportActionBar(toolbars);
+        getSupportActionBar().setTitle("Formulario de registro");
+        toolbars.setNavigationIcon(R.drawable.ic_atras);
+        toolbars.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
