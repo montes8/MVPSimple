@@ -15,8 +15,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        onClickSesion =  findViewById(R.id.button_sesion);
-        onClickReistarte = findViewById(R.id.button_register);
+        onClickSesion =  (Button) findViewById(R.id.button_sesion);
+        onClickReistarte = (Button)findViewById(R.id.button_register);
 
         onClickSesion.setOnClickListener(new View.OnClickListener() {
 
