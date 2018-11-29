@@ -1,6 +1,8 @@
 package com.example.tayler_gabbi.demo_mvp_simple.model;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
 
 import com.example.tayler_gabbi.demo_mvp_simple.database.ConexionSQLiteHelper;
@@ -11,6 +13,8 @@ import com.example.tayler_gabbi.demo_mvp_simple.view.RegistrarView;
 public class PresenterRegistrarImpl implements RegistrarPresenter {
 
     private RegistrarView registrarView;
+
+    Context context;
 
     public PresenterRegistrarImpl(RegistrarView registrarView) {
         this.registrarView = registrarView;
@@ -32,8 +36,8 @@ public class PresenterRegistrarImpl implements RegistrarPresenter {
             registrarView.passwordError();
 
         }else {
-
             registrarView.registrarSuccess();
+
         }
     }
 }

@@ -10,4 +10,6 @@ public interface RegistrarView {
     void usuarioError();
 
     void passwordError();
+
+    void registerError();
 }

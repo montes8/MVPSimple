@@ -1,6 +1,7 @@
 package com.example.tayler_gabbi.demo_mvp_simple;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,7 +21,7 @@ public class RegistrarActivity extends AppCompatActivity implements RegistrarVie
     private EditText nombre,usuario,contrasenia;
     private Button btnRegistrar;
     private RegistrarPresenter registrarPresenter;
-    ConexionSQLiteHelper conn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,16 +65,25 @@ public class RegistrarActivity extends AppCompatActivity implements RegistrarVie
 
     @Override
     public void registrarSuccess() {
-        conn = new ConexionSQLiteHelper(this,"database",null,1);
+        ConexionSQLiteHelper conn = new ConexionSQLiteHelper(this,"database",null,1);
         SQLiteDatabase db = conn.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("nombre",nombre.getText().toString());
         values.put("usuario",usuario.getText().toString());
         values.put("contrasenia",contrasenia.getText().toString());
-
         Long idResultante = db.insert("USUARIO","id",values);
 
-            Toast.makeText(this,"usuario registrado"+idResultante,Toast.LENGTH_LONG).show();
+        if(idResultante !=null && idResultante >0){
+
+            Intent intent = new Intent(this,HomeActivity.class);
+            startActivity(intent);
+            Toast.makeText(this,"usuario registrado",Toast.LENGTH_LONG).show();
+        }else {
+
+            Toast.makeText(this,"usuario no registrado",Toast.LENGTH_LONG).show();
+        }
+
+
 
 
 
@@ -98,5 +108,10 @@ public class RegistrarActivity extends AppCompatActivity implements RegistrarVie
 
         Toast.makeText(this,"Ingrese  Contraseña",Toast.LENGTH_LONG).show();
 
+    }
+
+    @Override
+    public void registerError() {
+        Toast.makeText(this,"usuario no guardado",Toast.LENGTH_LONG).show();
     }
 }
