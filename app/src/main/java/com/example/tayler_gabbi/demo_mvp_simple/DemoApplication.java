@@ -1,17 +1,29 @@
 package com.example.tayler_gabbi.demo_mvp_simple;
 
 import android.app.Application;
-import android.arch.persistence.room.Room;
+
+import com.example.tayler_gabbi.demo_mvp_simple.database.modelos.DaoMaster;
+import com.example.tayler_gabbi.demo_mvp_simple.database.modelos.DaoSession;
+
+import org.greenrobot.greendao.database.Database;
 
 
 public class DemoApplication extends Application{
 
-    public static DataBase dataBase;
+
+    private DaoSession daoSession;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        dataBase = Room.databaseBuilder(this,DataBase.class,"demo_database.db")
-                .build();
+
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this,"mydb");
+        Database db = helper.getWritableDb();
+        daoSession = new DaoMaster(db).newSession();
+
+    }
+
+    public DaoSession getDaoSession() {
+        return daoSession;
     }
 }
