@@ -1,7 +1,6 @@
 package com.example.tayler_gabbi.demo_mvp_simple.model;
 
 import android.text.TextUtils;
-
 import com.example.tayler_gabbi.demo_mvp_simple.presenter.LoginPresenter;
 import com.example.tayler_gabbi.demo_mvp_simple.view.LoginView;
 
@@ -14,7 +13,7 @@ public class PresenterImpl implements LoginPresenter {
     }
 
     @Override
-    public void perfomLogin(String userName, String password) {
+    public void perfomLogin(final String userName, final String password) {
 
         if(TextUtils.isEmpty(userName) || TextUtils.isEmpty(password)){
 
@@ -22,14 +21,8 @@ public class PresenterImpl implements LoginPresenter {
 
         }else {
 
-            if(userName.equals("tayler") && password.equals("tayler")){
-
-                loginView.loginSuccess();
-            }else {
-
-                loginView.loginError();
-            }
         }
-
     }
+
+
 }
