@@ -1,7 +1,6 @@
 package com.example.tayler_gabbi.demo_mvp_simple.model;
 
 import android.text.TextUtils;
-import com.example.tayler_gabbi.demo_mvp_simple.database.modelos.UsuarioDao;
 import com.example.tayler_gabbi.demo_mvp_simple.presenter.LoginPresenter;
 import com.example.tayler_gabbi.demo_mvp_simple.view.LoginView;
 
@@ -9,7 +8,6 @@ import com.example.tayler_gabbi.demo_mvp_simple.view.LoginView;
 public class PresenterImpl implements LoginPresenter {
 
     LoginView loginView;
-    private UsuarioDao usuarioDao;
 
     public PresenterImpl(LoginView loginView) {
         this.loginView = loginView;

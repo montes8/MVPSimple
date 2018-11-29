@@ -1,5 +1,7 @@
 package com.example.tayler_gabbi.demo_mvp_simple;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -8,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.tayler_gabbi.demo_mvp_simple.database.ConexionSQLiteHelper;
 import com.example.tayler_gabbi.demo_mvp_simple.model.PresenterRegistrarImpl;
 import com.example.tayler_gabbi.demo_mvp_simple.presenter.RegistrarPresenter;
 import com.example.tayler_gabbi.demo_mvp_simple.view.RegistrarView;
@@ -17,6 +20,7 @@ public class RegistrarActivity extends AppCompatActivity implements RegistrarVie
     private EditText nombre,usuario,contrasenia;
     private Button btnRegistrar;
     private RegistrarPresenter registrarPresenter;
+    ConexionSQLiteHelper conn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +32,8 @@ public class RegistrarActivity extends AppCompatActivity implements RegistrarVie
         contrasenia = findViewById(R.id.edit_text_password);
         btnRegistrar = findViewById(R.id.button_register_ingresar);
         registrarPresenter = new PresenterRegistrarImpl(this);
+
+
 
         Toolbar toolbars = (Toolbar) findViewById(R.id.toolbar_register);
         setSupportActionBar(toolbars);
@@ -58,8 +64,18 @@ public class RegistrarActivity extends AppCompatActivity implements RegistrarVie
 
     @Override
     public void registrarSuccess() {
+        conn = new ConexionSQLiteHelper(this,"database",null,1);
+        SQLiteDatabase db = conn.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("nombre",nombre.getText().toString());
+        values.put("usuario",usuario.getText().toString());
+        values.put("contrasenia",contrasenia.getText().toString());
 
-        Toast.makeText(this,"usuario registrado",Toast.LENGTH_LONG).show();
+        Long idResultante = db.insert("USUARIO","id",values);
+
+            Toast.makeText(this,"usuario registrado"+idResultante,Toast.LENGTH_LONG).show();
+
+
 
     }
 
