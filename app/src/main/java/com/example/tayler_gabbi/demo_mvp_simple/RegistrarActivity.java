@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.tayler_gabbi.demo_mvp_simple.database.ConexionSQLiteHelper;
+import com.example.tayler_gabbi.demo_mvp_simple.database.Usuario;
 import com.example.tayler_gabbi.demo_mvp_simple.model.PresenterRegistrarImpl;
 import com.example.tayler_gabbi.demo_mvp_simple.presenter.RegistrarPresenter;
 import com.example.tayler_gabbi.demo_mvp_simple.view.RegistrarView;
@@ -66,12 +67,12 @@ public class RegistrarActivity extends AppCompatActivity implements RegistrarVie
     @Override
     public void registrarSuccess() {
         ConexionSQLiteHelper conn = new ConexionSQLiteHelper(this,"database",null,1);
-        SQLiteDatabase db = conn.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("nombre",nombre.getText().toString());
-        values.put("usuario",usuario.getText().toString());
-        values.put("contrasenia",contrasenia.getText().toString());
-        Long idResultante = db.insert("USUARIO","id",values);
+
+        Usuario usuarioi = new Usuario();
+        usuarioi.setNombre(nombre.getText().toString());
+        usuarioi.setUsuario(usuario.getText().toString());
+        usuarioi.setContrasenia(contrasenia.getText().toString());
+        Long idResultante = conn.insertarCategoria(usuarioi);
 
         if(idResultante !=null && idResultante >0){
 

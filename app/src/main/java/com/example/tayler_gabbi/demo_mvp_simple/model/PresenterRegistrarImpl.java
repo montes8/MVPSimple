@@ -36,6 +36,11 @@ public class PresenterRegistrarImpl implements RegistrarPresenter {
             registrarView.passwordError();
 
         }else {
+
+            ContentValues values = new ContentValues();
+            values.put("nombre",name);
+            values.put("nombre",userName);
+            values.put("nombre",password);
             registrarView.registrarSuccess();
 
         }

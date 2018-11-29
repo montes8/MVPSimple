@@ -1,5 +1,6 @@
 package com.example.tayler_gabbi.demo_mvp_simple.database;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -21,8 +22,8 @@ public class ConexionSQLiteHelper extends SQLiteOpenHelper{
             columnaUsuario +" TEXT NOT NULL,"+
             columnaContrasenia +" TEXT NOT NULL)";
 
-    public ConexionSQLiteHelper(Context context, String dbNombre, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, dbNombre, factory, version);
+    public ConexionSQLiteHelper(Context context, String dbNombre, SQLiteDatabase.CursorFactory factory, int dbVersion) {
+        super(context, dbNombre, factory, dbVersion);
     }
 
     @Override
@@ -37,5 +38,15 @@ public class ConexionSQLiteHelper extends SQLiteOpenHelper{
 
         sqLiteDatabase.execSQL("Drop table IF EXISTS "+ TablaUser);
 
+    }
+
+    public Long insertarCategoria(Usuario usuario){
+     SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("nombre",usuario.getNombre());
+        values.put("usuario",usuario.getUsuario());
+        values.put("contrasenia",usuario.getContrasenia());
+        Long ID =db.insert(TablaUser,"",values);
+        return ID;
     }
 }

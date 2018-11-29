@@ -2,7 +2,7 @@ package com.example.tayler_gabbi.demo_mvp_simple.database;
 
 public class Usuario {
 
-    private Integer id;
+    private Long id;
 
     private String nombre;
 
@@ -11,18 +11,11 @@ public class Usuario {
     private String contrasenia;
 
 
-    public Usuario(Integer id, String nombre, String usuario, String contrasenia) {
-        this.id = id;
-        this.nombre = nombre;
-        this.usuario = usuario;
-        this.contrasenia = contrasenia;
-    }
-
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
