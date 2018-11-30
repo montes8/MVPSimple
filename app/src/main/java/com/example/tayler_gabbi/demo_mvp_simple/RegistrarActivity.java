@@ -35,7 +35,7 @@ public class RegistrarActivity extends AppCompatActivity implements RegistrarVie
         btnRegistrar = findViewById(R.id.button_register_ingresar);
         registrarPresenter = new PresenterRegistrarImpl(this);
 
-
+        final ConexionSQLiteHelper conn = new ConexionSQLiteHelper(this,"database",null,1);
 
         Toolbar toolbars = (Toolbar) findViewById(R.id.toolbar_register);
         setSupportActionBar(toolbars);
@@ -56,7 +56,7 @@ public class RegistrarActivity extends AppCompatActivity implements RegistrarVie
                 String usu = usuario.getText().toString();
                 String pass = contrasenia.getText().toString();
 
-                registrarPresenter.registrarUsuario(name,usu,pass);
+                registrarPresenter.registrarUsuario(name,usu,pass,conn);
 
             }
         });
@@ -66,26 +66,9 @@ public class RegistrarActivity extends AppCompatActivity implements RegistrarVie
 
     @Override
     public void registrarSuccess() {
-        ConexionSQLiteHelper conn = new ConexionSQLiteHelper(this,"database",null,1);
-
-        Usuario usuarioi = new Usuario();
-        usuarioi.setNombre(nombre.getText().toString());
-        usuarioi.setUsuario(usuario.getText().toString());
-        usuarioi.setContrasenia(contrasenia.getText().toString());
-        Long idResultante = conn.insertarCategoria(usuarioi);
-
-        if(idResultante !=null && idResultante >0){
-
-            Intent intent = new Intent(this,HomeActivity.class);
-            startActivity(intent);
-            Toast.makeText(this,"usuario registrado",Toast.LENGTH_LONG).show();
-        }else {
-
-            Toast.makeText(this,"usuario no registrado",Toast.LENGTH_LONG).show();
-        }
-
-
-
+        Intent intent = new Intent(this,HomeActivity.class);
+        startActivity(intent);
+        Toast.makeText(this,"usuario registrado",Toast.LENGTH_LONG).show();
 
 
     }

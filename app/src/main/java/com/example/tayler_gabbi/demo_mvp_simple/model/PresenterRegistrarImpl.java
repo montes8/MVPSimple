@@ -2,10 +2,14 @@ package com.example.tayler_gabbi.demo_mvp_simple.model;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
+import android.widget.Toast;
 
+import com.example.tayler_gabbi.demo_mvp_simple.HomeActivity;
 import com.example.tayler_gabbi.demo_mvp_simple.database.ConexionSQLiteHelper;
+import com.example.tayler_gabbi.demo_mvp_simple.database.Usuario;
 import com.example.tayler_gabbi.demo_mvp_simple.presenter.RegistrarPresenter;
 import com.example.tayler_gabbi.demo_mvp_simple.view.RegistrarView;
 
@@ -22,7 +26,7 @@ public class PresenterRegistrarImpl implements RegistrarPresenter {
     }
 
     @Override
-    public void registrarUsuario(String name, String userName, String password) {
+    public void registrarUsuario(String name, String userName, String password,ConexionSQLiteHelper conn) {
 
         if(TextUtils.isEmpty(name)){
 
@@ -37,11 +41,22 @@ public class PresenterRegistrarImpl implements RegistrarPresenter {
 
         }else {
 
-            ContentValues values = new ContentValues();
-            values.put("nombre",name);
-            values.put("nombre",userName);
-            values.put("nombre",password);
-            registrarView.registrarSuccess();
+            Usuario usuarioi = new Usuario();
+            usuarioi.setNombre(name);
+            usuarioi.setUsuario(userName);
+            usuarioi.setContrasenia(password);
+            Long idResultante = conn.insertarCategoria(usuarioi);
+
+            if(idResultante !=null && idResultante >0){
+
+                registrarView.registrarSuccess();
+
+            }else {
+
+                registrarView.registerError();
+            }
+
+
 
         }
     }
