@@ -2,8 +2,12 @@ package com.example.tayler_gabbi.demo_mvp_simple.database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class ConexionSQLiteHelper extends SQLiteOpenHelper{
 
@@ -40,7 +44,7 @@ public class ConexionSQLiteHelper extends SQLiteOpenHelper{
 
     }
 
-    public Long insertarCategoria(Usuario usuario){
+    public Long insertarUsuario(Usuario usuario){
      SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("nombre",usuario.getNombre());
@@ -49,4 +53,25 @@ public class ConexionSQLiteHelper extends SQLiteOpenHelper{
         Long ID =db.insert(TablaUser,"",values);
         return ID;
     }
+
+
+    public ArrayList<Usuario> consultarListaUsuarios() {
+
+        SQLiteDatabase consulta= getReadableDatabase();
+
+        Usuario usuario = null;
+
+        ArrayList<Usuario> listaUsuarios = new ArrayList<>();
+        Cursor cursor=consulta.rawQuery("SELECT * FROM "+TablaUser,null);
+
+        while (cursor.moveToNext()){
+            usuario = new Usuario();
+            usuario.setId(cursor.getLong(0));
+            usuario.setNombre(cursor.getString(1));
+            usuario.setUsuario(cursor.getString(2));
+            usuario.setContrasenia(cursor.getString(3));
+        }
+        return listaUsuarios;
+    }
+
 }

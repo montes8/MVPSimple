@@ -45,7 +45,7 @@ public class PresenterRegistrarImpl implements RegistrarPresenter {
             usuarioi.setNombre(name);
             usuarioi.setUsuario(userName);
             usuarioi.setContrasenia(password);
-            Long idResultante = conn.insertarCategoria(usuarioi);
+            Long idResultante = conn.insertarUsuario(usuarioi);
 
             if(idResultante !=null && idResultante >0){
 

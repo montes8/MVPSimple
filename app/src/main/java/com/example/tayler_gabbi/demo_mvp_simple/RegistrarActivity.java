@@ -70,7 +70,7 @@ public class RegistrarActivity extends AppCompatActivity implements RegistrarVie
         startActivity(intent);
         Toast.makeText(this,"usuario registrado",Toast.LENGTH_LONG).show();
         finish();
-        
+
     }
 
     @Override
