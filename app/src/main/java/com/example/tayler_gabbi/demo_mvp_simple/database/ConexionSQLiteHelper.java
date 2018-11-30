@@ -89,4 +89,15 @@ public class ConexionSQLiteHelper extends SQLiteOpenHelper{
 
     }
 
+    public void eliminarUsuario(String id){
+
+        SQLiteDatabase eliminar= getWritableDatabase();
+
+        String [] parametro = {id};
+
+        eliminar.delete(TablaUser,columnaID+"=?",parametro);
+
+
+    }
+
 }
