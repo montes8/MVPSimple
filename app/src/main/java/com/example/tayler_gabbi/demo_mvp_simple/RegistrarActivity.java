@@ -69,8 +69,8 @@ public class RegistrarActivity extends AppCompatActivity implements RegistrarVie
         Intent intent = new Intent(this,HomeActivity.class);
         startActivity(intent);
         Toast.makeText(this,"usuario registrado",Toast.LENGTH_LONG).show();
-
-
+        finish();
+        
     }
 
     @Override
@@ -98,4 +98,6 @@ public class RegistrarActivity extends AppCompatActivity implements RegistrarVie
     public void registerError() {
         Toast.makeText(this,"usuario no guardado",Toast.LENGTH_LONG).show();
     }
+
+
 }
