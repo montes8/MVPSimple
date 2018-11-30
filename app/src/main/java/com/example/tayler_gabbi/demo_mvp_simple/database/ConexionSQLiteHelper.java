@@ -74,4 +74,19 @@ public class ConexionSQLiteHelper extends SQLiteOpenHelper{
         return listaUsuarios;
     }
 
+    public void actualizarUsuario(Usuario usu){
+
+        SQLiteDatabase actualizar= getWritableDatabase();
+
+        String [] parametro = {usu.getId().toString()};
+
+        ContentValues values = new ContentValues();
+        values.put(columnaNombre,usu.getNombre());
+        values.put(columnaUsuario,usu.getUsuario());
+        values.put(columnaContrasenia,usu.getContrasenia());
+
+        actualizar.update(TablaUser,values,columnaID+"=?",parametro);
+
+    }
+
 }
