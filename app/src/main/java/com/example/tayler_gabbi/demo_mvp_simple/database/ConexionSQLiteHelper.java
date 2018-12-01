@@ -3,8 +3,10 @@ package com.example.tayler_gabbi.demo_mvp_simple.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -98,11 +100,13 @@ public class ConexionSQLiteHelper extends SQLiteOpenHelper{
 
 
     }
-    public Boolean userLogin(String usuario,String contraseña){
-        SQLiteDatabase valilogin= getReadableDatabase();
-
-        String query="select * from Usuarios where Usuario = '$usuario' and password = '$contraseña'";
-        Cursor cursor=valilogin.rawQuery(query,null);
+    public Boolean userLogin(String usu,String contrasena) throws SQLException{
+        SQLiteDatabase valilogin= getWritableDatabase();
+        String[] columns = {columnaID};
+        String selection = columnaUsuario + " = ?" + " AND " + columnaContrasenia + " =?";
+        String[] selectionArgs = { usu, contrasena };
+        Cursor cursor=valilogin.query(TablaUser,columns,selection,selectionArgs,null,null,null);
+        Log.d("usurio",""+cursor);
         if (cursor.getCount()<=0){
             cursor.close();
             return false;
