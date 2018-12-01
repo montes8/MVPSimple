@@ -94,10 +94,21 @@ public class ConexionSQLiteHelper extends SQLiteOpenHelper{
         SQLiteDatabase eliminar= getWritableDatabase();
 
         String [] parametro = {id};
-
         eliminar.delete(TablaUser,columnaID+"=?",parametro);
 
 
     }
+    public Boolean userLogin(String usuario,String contraseña){
+        SQLiteDatabase valilogin= getReadableDatabase();
 
+        String query="select * from Usuarios where Usuario = '$usuario' and password = '$contraseña'";
+        Cursor cursor=valilogin.rawQuery(query,null);
+        if (cursor.getCount()<=0){
+            cursor.close();
+            return false;
+        }
+        cursor.close();
+        return true;
+
+    }
 }
