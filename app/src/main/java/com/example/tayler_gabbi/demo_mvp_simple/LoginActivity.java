@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.tayler_gabbi.demo_mvp_simple.database.ConexionSQLiteHelper;
 import com.example.tayler_gabbi.demo_mvp_simple.model.PresenterImpl;
 import com.example.tayler_gabbi.demo_mvp_simple.presenter.LoginPresenter;
 import com.example.tayler_gabbi.demo_mvp_simple.view.LoginView;
@@ -28,6 +29,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
         edPassword = findViewById(R.id.edit_pasword);
         btLogearse = findViewById(R.id.button_ingresar);
 
+        final ConexionSQLiteHelper conn = new ConexionSQLiteHelper(this,"database",null,1);
+
         loginPresenter = new PresenterImpl(this);
 
         btLogearse.setOnClickListener(new View.OnClickListener() {
@@ -37,7 +40,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
                 String usuario = edNombre.getText().toString();
                 String contrasenia = edPassword.getText().toString();
 
-                loginPresenter.perfomLogin(usuario,contrasenia);
+                loginPresenter.perfomLogin(usuario,contrasenia,conn);
 
 
             }
